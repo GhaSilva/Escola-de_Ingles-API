@@ -5,13 +5,13 @@ const app = express()
 
 app.use(bodyParser.json)
 
-const port = 3000
+
 
 app.get('/teste', (req, res) => res
     .status(200)
     .send({mensagem: 'Boas-Vindas a API'})
 )
 
-app.listen(port, () => console.log(`Servidor está rodando na porta ${port}`))
+app.listen(3000, () => console.log(`Servidor está rodando na porta 3000`))
 
 module.exports = app
