@@ -1,5 +1,6 @@
 const database = require('../models')
 const Sequelize = require('sequelize')
+const { sequelize } = require('../models')
 
 class PessoaController{
     static async pegaPessoasAtivas(req, res){
@@ -162,12 +163,17 @@ class PessoaController{
 
     static async cacancelaPessoa(req, res){
         const {estudanteId} = req.params
+        const transacao = await sequelize.transaction();
         try{
-            await database.Pessoas.update({ ativo: false }, { where: {id: Number(estudanteId)}})
-            await database.Matriculas.update({ status: 'cancelado' }, { where: {estudante_id: Number(estudanteId)}})
+                await database.Pessoas.update({ ativo: false }, { where: {id: Number(estudanteId)}}, {
+                    transaction: transacao
+                })
+                await database.Matriculas.update({ status: 'cancelado' }, { where: {estudante_id: Number(estudanteId)}},{
+                    transaction: transacao
+                })
+                return res.status(200).json({message: `matriculas ref. estudante ${estudanteId} canceladas`})
             
-        
-            return res.status(200).json({message: `matriculas ref. estudante ${estudanteId} canceladas`})
+           
         }catch(error){
             return res.status(500).json(error.message)
         }
