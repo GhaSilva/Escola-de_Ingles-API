@@ -23,4 +23,6 @@ router.delete('/pessoas/:estudanteId/matricula/:matriculaId' , PessoaController.
 router.get('/pessoas/matricula/:turmaId/confirmados', PessoaController.pegaMatriculasPorTurma)
 router.get('/pessoas/matricula/lotados', PessoaController.pegaTurmasLotadas)
 
+router.post('/pessoas/:estudanteId/cancela', PessoaController.cacancelaPessoa)
+
 module.exports = router
