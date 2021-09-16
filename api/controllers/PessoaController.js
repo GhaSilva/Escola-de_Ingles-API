@@ -1,5 +1,5 @@
-//const database = require('../models')
-//const Sequelize = require('sequelize')
+const database = require('../models')
+const Sequelize = require('sequelize')
 
 const {PessoasServices} = require('../services')
 const pessoasServices = new PessoasServices()

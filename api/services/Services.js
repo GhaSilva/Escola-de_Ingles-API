@@ -1,3 +1,4 @@
+const { where } = require('sequelize/types')
 const database = require('../models')
 
 class Services{
@@ -16,8 +17,12 @@ class Services{
 
     }
 
-    async atualizaRegistro(dadosAtualizados, id){
+    async atualizaRegistro(dadosAtualizados, id, transacao = {}){
+        return database[this.nomeDoModelo].update(dadosAtualizados, where, transacao)
+    }
 
+    async atualizaRegistros(dadosAtualizados, id, transacao = {}){
+        return database[this.nomeDoModelo].update(dadosAtualizados, {where: {...where}}, transacao)
     }
 
     async apagaRegistro(id){
